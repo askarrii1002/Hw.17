@@ -1,0 +1,67 @@
+﻿@page
+@model IndexModel
+@{
+}
+<h2>My Music</h2>
+<div>
+    <a asp-page="Create">Add Music</a>
+</div>
+@if(Model.AfterAddMessage!=null)
+{
+<div>
+    @Model.AfterAddMessage
+</div>
+
+}
+<div>
+    @if(Model.MyMusicLove.Count()>0)
+    {
+    <form method="post">
+    <div>
+        <table class="w3-table-all w3-card-4">
+            <tr class="w3-blue">
+                <th>
+                    @Html.DisplayNameFor(m => m.MyMusicLove.FirstOrDefault().Song)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(m => m.MyMusicLove.FirstOrDefault().Artist)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(m => m.MyMusicLove.FirstOrDefault().Album)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(m => m.MyMusicLove.FirstOrDefault().StarRating)
+                </th>
+                <th>
+                </th>
+            </tr>
+            @foreach(var item in Model.MyMusicLove)
+            {
+            <tr>
+                <td>
+                    @Html.DisplayFor(m => item.Song)
+                </td>
+                <td>
+                    @Html.DisplayFor(m => item.Artist)
+                </td>
+                <td>
+                    @Html.DisplayFor(m => item.Album)
+                </td>
+                <td>
+                    @Html.DisplayFor(m => item.StarRating)
+                </td>
+                <td>
+                    <a asp--page="Edit" asp-route-id="@item.ID">Edit</a>
+                    <button asp-page-handler="Delete" asp-route-id="@item.ID">&times;</button>
+                </td>
+            </tr>
+            }
+        </table>
+    </div>
+    </form>
+    } else
+    {
+       <p>No music currently</p>
+
+    }
+</div>
